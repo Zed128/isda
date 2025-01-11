@@ -59,7 +59,7 @@ MainTab:AddToggle({
 	end    
 })
 task.spawn(function()
-	while LocalPlayer.PlayerGui:FindFirstChild("shakeui") and LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button") and LocalPlayer.PlayerGui.shakeui.safezone.button:FindFirstChild("buttonConsoleSense") do
+	while AutoShakeEnabled and LocalPlayer.PlayerGui:FindFirstChild("shakeui") and LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button") and LocalPlayer.PlayerGui.shakeui.safezone.button:FindFirstChild("buttonConsoleSense") do
 		game:GetService("GuiService").SelectedObject = LocalPlayer.PlayerGui.shakeui.safezone.button
 		keypress(Enum.KeyCode.Return)
 		keyrelease(Enum.KeyCode.Return)
