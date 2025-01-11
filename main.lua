@@ -53,7 +53,7 @@ task.spawn(function()
 				end)
 			end
 		end
-		task.wait(0.25)
+		task.wait(0.5)  -- Reduced delay for faster checking
 	end
 end)
 
@@ -72,6 +72,7 @@ task.spawn(function()
 			keypress(Enum.KeyCode.Return)
 			keyrelease(Enum.KeyCode.Return)
 		end
+		task.wait(0.05)  -- Reduced delay for faster shaking
 	end
 end)
 
