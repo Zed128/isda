@@ -17,6 +17,7 @@ function getRodToolFromBackpack(): Instance
 			return v
 		end
 	end
+	return nil
 end
 
 local Window = OrionLib:MakeWindow({Name = "Isda by Zed256", HidePremium = false})
@@ -43,8 +44,10 @@ MainTab:AddToggle({
 })
 task.spawn(function()
 	while AutoEquipRodEnabled do
-		Character:WaitForChild("Humanoid"):EquipTool(getRodToolFromBackpack())
-		task.wait(.25)
+		pcall(function()
+			Character:WaitForChild("Humanoid"):EquipTool(getRodToolFromBackpack())
+			task.wait(.25)
+		end)
 	end
 end)
 
@@ -52,7 +55,6 @@ MainTab:AddToggle({
 	Name = "Auto Shake",
 	Default = false,
 	Callback = function(Value)
-		print(getRodToolFromBackpack())
 		AutoShakeEnabled = true
 	end    
 })
