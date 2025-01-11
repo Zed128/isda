@@ -26,7 +26,7 @@ local Window = OrionLib:MakeWindow({Name = "Isda by Zed256", HidePremium = false
 
 local MainTab = Window:MakeTab({
 	Name = "Main",
-	Icon = "rbxassetid://4370345169",
+	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
@@ -79,7 +79,7 @@ MainTab:AddButton({
 
 local PlayerTab = Window:MakeTab({
 	Name = "Player",
-	Icon = "rbxassetid://6961018899",
+	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
