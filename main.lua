@@ -19,6 +19,13 @@ function getRodToolFromBackpack()
 	end
 	return nil
 end
+function getRodToolFromCharacter()
+	if Character:FindFirstChildOfClass("Tool") and Character:FindFirstChildOfClass("Tool"):FindFirstChild("events") and Character:FindFirstChildOfClass("Tool"):FindFirstChild("events"):FindFirstChild("cast") then
+		return Character:FindFirstChildOfClass("Tool")
+	else
+		return nil
+	end
+end
 
 local Window = OrionLib:MakeWindow({Name = "Isda by Zed256", HidePremium = false})
 
@@ -29,6 +36,7 @@ local MainTab = Window:MakeTab({
 })
 
 local AutoEquipRodEnabled = false
+local AutoCastEnabled = false
 local AutoShakeEnabled = false
 local AutoReelEnabled = false
 local AutoReelType = "Fire Event"
@@ -44,7 +52,6 @@ MainTab:AddToggle({
 		AutoEquipRodEnabled = Value
 	end    
 })
-
 task.spawn(function()
 	while true do
 		if AutoEquipRodEnabled then
@@ -60,13 +67,33 @@ task.spawn(function()
 end)
 
 MainTab:AddToggle({
+	Name = "Auto Cast",
+	Default = false,
+	Callback = function(Value)
+		AutoCastEnabled = Value
+	end    
+})
+task.spawn(function()
+	while true do
+		if AutoCastEnabled and isRodEquiped() then
+			local args = {
+				[1] = 100,
+				[2] = 1
+			}
+
+			getRodToolFromBackpack().events.cast:FireServer(unpack(args))
+		end
+		task.wait(0.5)  -- Reduced delay for faster casting
+	end
+end)
+
+MainTab:AddToggle({
 	Name = "Auto Shake",
 	Default = false,
 	Callback = function(Value)
 		AutoShakeEnabled = Value
 	end    
 })
-
 task.spawn(function()
 	while true do
 		if AutoShakeEnabled and LocalPlayer.PlayerGui:FindFirstChild("shakeui") and LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button") and LocalPlayer.PlayerGui.shakeui.safezone.button:FindFirstChild("buttonConsoleSense") then
@@ -85,7 +112,6 @@ MainTab:AddToggle({
 		AutoReelEnabled = Value
 	end    
 })
-
 MainTab:AddDropdown({
 	Name = "Dropdown",
 	Default = "Fire Event",
@@ -94,7 +120,6 @@ MainTab:AddDropdown({
 		AutoReelType = Value
 	end    
 })
-
 task.spawn(function()
 	while true do
 		if AutoReelEnabled then
