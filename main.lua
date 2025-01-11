@@ -41,6 +41,7 @@ MainTab:AddToggle({
 	Name = "Auto Equip Rod",
 	Default = false,
 	Callback = function(Value)
+		print(getRodToolFromBackpack())
 		AutoEquipRodEnabled = true
 	end    
 })
