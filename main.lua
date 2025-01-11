@@ -13,7 +13,7 @@ end
 
 function getRodToolFromBackpack(): Instance
 	for i,v in pairs(LocalPlayer.Backpack:GetChildren()) do
-		if v:FindFirstChild("events") and v.events:FindFirstChild("cast") then
+		if v:FindFirstChild("events") and v:FindFirstChild("events"):FindFirstChild("cast") then
 			return v
 		end
 	end
