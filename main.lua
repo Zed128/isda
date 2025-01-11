@@ -46,6 +46,7 @@ MainTab:AddToggle({
 })
 task.spawn(function()
 	while AutoEquipRodEnabled do
+		print(getRodToolFromBackpack())
 		pcall(function()
 			Character:WaitForChild("Humanoid"):EquipTool(getRodToolFromBackpack())
 			task.wait(.25)
