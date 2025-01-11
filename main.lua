@@ -15,6 +15,8 @@ function getRodToolFromBackpack(): Instance
 	for i,v in pairs(LocalPlayer.Backpack:GetChildren()) do
 		if v:FindFirstChild("events") and v:FindFirstChild("events"):FindFirstChild("cast") then
 			return v
+		else
+			return nil
 		end
 	end
 	return nil
