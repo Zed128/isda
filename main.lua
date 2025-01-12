@@ -60,7 +60,7 @@ end
 
 local AutoEquipRodEnabled = false
 local AutoCastEnabled = false
-local AutoCastRange = {100,100}
+local AutoCastRange = {100, 100}
 local AutoShakeEnabled = false
 local AutoReelEnabled = false
 local AutoReelType = "Fire Event"
@@ -108,7 +108,7 @@ MainTab:AddSlider({
 	Increment = 1,
 	ValueName = "Starting Auto Cast Range",
 	Callback = function(Value)
-		AutoCastEnabled[1] = tonumber(Value)
+		AutoCastRange[1] = tonumber(Value)
 	end    
 })
 MainTab:AddSlider({
@@ -120,7 +120,7 @@ MainTab:AddSlider({
 	Increment = 1,
 	ValueName = "Ending Auto Cast Range",
 	Callback = function(Value)
-		AutoCastEnabled[2] = tonumber(Value)
+		AutoCastRange[2] = tonumber(Value)
 	end    
 })
 task.spawn(function()
@@ -129,7 +129,7 @@ task.spawn(function()
 			local rod = getRodToolFromCharacter()
 			if rod and rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
 				local args = {
-					[1] = math.random(AutoCastEnabled[1], AutoCastEnabled[2]),
+					[1] = math.random(AutoCastRange[1], AutoCastRange[2]),
 					[2] = 1
 				}
 				rod.events.cast:FireServer(unpack(args))
