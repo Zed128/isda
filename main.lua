@@ -3,6 +3,8 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 
+local RunService = game:GetService("RunService")
+
 function isRodEquiped()
 	local tool = Character:FindFirstChildOfClass("Tool")
 	if tool and tool:FindFirstChild("events") and tool.events:FindFirstChild("cast") then
@@ -64,6 +66,9 @@ local AutoCastRange = {95, 100}
 local AutoShakeEnabled = false
 local AutoReelEnabled = false
 local AutoReelType = "Fire Event"
+
+local IsCharacterFreezed = false
+local initialPosition
 
 MainTab:AddSection({
 	Name = "Auto Fish"
@@ -219,7 +224,7 @@ MainTab:AddButton({
 		require(game:GetService("ReplicatedStorage").modules.library.rods)[getRodToolFromBackpack().Name].Strength = math.huge
 		require(game:GetService("ReplicatedStorage").modules.library.rods)[getRodToolFromBackpack().Name].Resilience = math.huge
 		require(game:GetService("ReplicatedStorage").modules.library.rods)[getRodToolFromBackpack().Name].Control = .7
-		
+
 		OrionLib:MakeNotification({
 			Name = "Successfully Maxed Rod",
 			Content = "Note: This resets once you leave the game",
@@ -241,6 +246,29 @@ local PlayerTab = Window:MakeTab({
 	Icon = "rbxassetid://6961018899",
 	PremiumOnly = false
 })
+
+PlayerTab:AddToggle({
+	Name = "Freeze Character",
+	Default = false,
+	Callback = function(Value: boolean)
+		IsCharacterFreezed = Value
+		if IsCharacterFreezed then
+			-- Store the initial position when freezing is enabled
+			initialPosition = Character.PrimaryPart.CFrame
+		end
+	end    
+})
+task.spawn(function()
+	-- Function to maintain the character's position
+	local function freezeCharacter()
+		if IsCharacterFreezed and initialPosition then
+			Character:SetPrimaryPartCFrame(initialPosition)
+		end
+	end
+
+	-- Connect the function to the RenderStepped event
+	RunService.RenderStepped:Connect(freezeCharacter)
+end)
 
 local SettingsTab = Window:MakeTab({
 	Name = "Settings",
