@@ -149,7 +149,9 @@ MainTab:AddToggle({
 task.spawn(function()
 	while true do
 		if AutoShakeEnabled and CurrentAction == "Shaking" and LocalPlayer.PlayerGui:FindFirstChild("shakeui") and LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button") and LocalPlayer.PlayerGui.shakeui.safezone.button:FindFirstChild("buttonConsoleSense") then
-			game:GetService("GuiService").SelectedObject = LocalPlayer.PlayerGui.shakeui.safezone.button
+			if LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button") then
+				game:GetService("GuiService").SelectedObject = LocalPlayer.PlayerGui.shakeui.safezone.button	
+			end
 			keypress(Enum.KeyCode.Return)
 			keyrelease(Enum.KeyCode.Return)
 		end
@@ -177,7 +179,9 @@ MainTab:AddDropdown({
 task.spawn(function()
 	while true do
 		if AutoReelEnabled and CurrentAction == "Reeling" then
+			print(1)
 			if AutoReelType == "Fire Event" then
+				print(2)
 				local args = {
 					[1] = 100,
 					[2] = true
@@ -188,6 +192,7 @@ task.spawn(function()
 					remoteEvent:FireServer(unpack(args))
 				end
 			elseif AutoReelType == "Follow Fish" then
+				print(3)
 				-- Follow the fish by adjusting the playerbar X position to match the fish X position
 				local playerGui = LocalPlayer:FindFirstChild("PlayerGui")
 				if playerGui then
