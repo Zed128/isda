@@ -95,7 +95,7 @@ MainTab:AddToggle({
 	Name = "Auto Cast",
 	Default = false,
 	Callback = function(Value)
-		math.random(AutoCastEnabled[1], AutoCastEnabled[2])
+		print(math.random(AutoCastEnabled[1], AutoCastEnabled[2]))
 		AutoCastEnabled = Value
 	end    
 })
