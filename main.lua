@@ -38,6 +38,21 @@ local MainTab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+--None, Shaking, Reeling
+local CurrentAction = "None"
+LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+	if child.Name == "shakeui" then
+		CurrentAction = "Shaking"
+	elseif child.Name == "reel" then 
+		CurrentAction = "Reeling"
+	end
+end)
+LocalPlayer.PlayerGui.ChildRemoved:Connect(function(child)
+	if child.Name == "shakeui" or child.Name == "reel" then
+		CurrentAction = "None"
+	end
+end)
+
 local AutoEquipRodEnabled = false
 local AutoCastEnabled = false
 local AutoShakeEnabled = false
@@ -104,7 +119,7 @@ MainTab:AddToggle({
 
 task.spawn(function()
 	while true do
-		if AutoShakeEnabled and LocalPlayer.PlayerGui:FindFirstChild("shakeui") and LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button") and LocalPlayer.PlayerGui.shakeui.safezone.button:FindFirstChild("buttonConsoleSense") then
+		if AutoShakeEnabled and CurrentAction == "Shaking" and LocalPlayer.PlayerGui:FindFirstChild("shakeui") and LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button") and LocalPlayer.PlayerGui.shakeui.safezone.button:FindFirstChild("buttonConsoleSense") then
 			game:GetService("GuiService").SelectedObject = LocalPlayer.PlayerGui.shakeui.safezone.button
 			keypress(Enum.KeyCode.Return)
 			keyrelease(Enum.KeyCode.Return)
@@ -132,16 +147,16 @@ MainTab:AddDropdown({
 
 task.spawn(function()
 	while true do
-		if AutoReelEnabled then
+		if AutoReelEnabled and CurrentAction == "Reeling" then
 			if AutoReelType == "Fire Event" then
 				local args = {
 					[1] = 100,
 					[2] = true
 				}
 				-- Fire the remote event (replace 'RemoteEvent' with the actual event name)
-				local remoteEvent = game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
+				local remoteEvent = game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished")
 				if remoteEvent then
-					remoteEvent:FireServer()
+					remoteEvent:FireServer(unpack(args))
 				end
 			elseif AutoReelType == "Follow Fish" then
 				-- Follow the fish by adjusting the playerbar X position to match the fish X position
