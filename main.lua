@@ -44,7 +44,7 @@ LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
 	if child.Name == "shakeui" then
 		CurrentAction = "Shaking"
 	elseif child.Name == "reel" then 
-		CurrentAction = "Shaking"
+		CurrentAction = "Reeling"
 	end
 end)
 LocalPlayer.PlayerGui.ChildRemoved:Connect(function(child)
@@ -55,7 +55,7 @@ end)
 if LocalPlayer.PlayerGui:FindFirstChild("shakeui") then
 	CurrentAction = "Shaking"
 elseif LocalPlayer.PlayerGui:FindFirstChild("reel") then
-	CurrentAction = "Shaking"
+	CurrentAction = "Reeling"
 end
 
 local AutoEquipRodEnabled = false
