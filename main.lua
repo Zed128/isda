@@ -60,7 +60,7 @@ end
 
 local AutoEquipRodEnabled = false
 local AutoCastEnabled = false
-local AutoCastRange = {100, 100}
+local AutoCastRange = {95, 100}
 local AutoShakeEnabled = false
 local AutoReelEnabled = false
 local AutoReelType = "Fire Event"
@@ -102,7 +102,7 @@ MainTab:AddSlider({
 	Name = "Starting Auto Cast Range",
 	Min = 0,
 	Max = 100,
-	Default = 100,
+	Default = 95,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
 	ValueName = "Starting Auto Cast Range",
