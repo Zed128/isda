@@ -60,6 +60,7 @@ end
 
 local AutoEquipRodEnabled = false
 local AutoCastEnabled = false
+local AutoCastRange = {100,100}
 local AutoShakeEnabled = false
 local AutoReelEnabled = false
 local AutoReelType = "Fire Event"
@@ -94,17 +95,41 @@ MainTab:AddToggle({
 	Name = "Auto Cast",
 	Default = false,
 	Callback = function(Value)
+		math.random(AutoCastEnabled[1], AutoCastEnabled[2])
 		AutoCastEnabled = Value
 	end    
 })
-
+MainTab:AddSlider({
+	Name = "Starting Auto Cast Range",
+	Min = 0,
+	Max = 100,
+	Default = 100,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Starting Auto Cast Range",
+	Callback = function(Value)
+		AutoCastEnabled[1] = tonumber(Value)
+	end    
+})
+MainTab:AddSlider({
+	Name = "Ending Auto Cast Range",
+	Min = 0,
+	Max = 100,
+	Default = 100,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Ending Auto Cast Range",
+	Callback = function(Value)
+		AutoCastEnabled[2] = tonumber(Value)
+	end    
+})
 task.spawn(function()
 	while true do
-		if AutoCastEnabled and isRodEquiped() then
+		if AutoCastEnabled and CurrentAction == "None" and isRodEquiped() then
 			local rod = getRodToolFromCharacter()
 			if rod and rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
 				local args = {
-					[1] = 100,
+					[1] = math.random(AutoCastEnabled[1], AutoCastEnabled[2]),
 					[2] = 1
 				}
 				rod.events.cast:FireServer(unpack(args))
