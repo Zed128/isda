@@ -34,7 +34,7 @@ local Window = OrionLib:MakeWindow({Name = "Isda by Zed256", HidePremium = false
 
 local MainTab = Window:MakeTab({
 	Name = "Main",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://4370345169",
 	PremiumOnly = false
 })
 
@@ -95,7 +95,6 @@ MainTab:AddToggle({
 	Name = "Auto Cast",
 	Default = false,
 	Callback = function(Value)
-		print(math.random(AutoCastRange[1], AutoCastRange[2]))
 		AutoCastEnabled = Value
 	end    
 })
@@ -129,7 +128,7 @@ task.spawn(function()
 			local rod = getRodToolFromCharacter()
 			if rod and rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
 				local args = {
-					[1] = math.random(AutoCastRange[1], AutoCastRange[2]),
+					[1] = Random.new():NextInteger(AutoCastRange[1], AutoCastRange[2]),
 					[2] = 1
 				}
 				rod.events.cast:FireServer(unpack(args))
@@ -203,6 +202,28 @@ task.spawn(function()
 	end
 end)
 
+MainTab:AddSection({
+	Name = "Exploits"
+})
+
+MainTab:AddButton({
+	Name = "Max Rod Stats (Not sure if everything works)",
+	Callback = function()
+		require(game:GetService("ReplicatedStorage").modules.library.rods)[getRodToolFromBackpack().Name].Luck = math.huge
+		require(game:GetService("ReplicatedStorage").modules.library.rods)[getRodToolFromBackpack().Name].LureSpeed = math.huge
+		require(game:GetService("ReplicatedStorage").modules.library.rods)[getRodToolFromBackpack().Name].Strength = math.huge
+		require(game:GetService("ReplicatedStorage").modules.library.rods)[getRodToolFromBackpack().Name].Resilience = math.huge
+		require(game:GetService("ReplicatedStorage").modules.library.rods)[getRodToolFromBackpack().Name].Control = .7
+		
+		OrionLib:MakeNotification({
+			Name = "Successfully Maxed Rod",
+			Content = "Note: This resets once you leave the game",
+			Image = "rbxassetid://4483345998",
+			Time = 5
+		})
+	end    
+})
+
 MainTab:AddButton({
 	Name = "Is Rod Equipped",
 	Callback = function()
@@ -212,7 +233,13 @@ MainTab:AddButton({
 
 local PlayerTab = Window:MakeTab({
 	Name = "Player",
-	Icon = "rbxassetid://4483345998",
+	Icon = "rbxassetid://6961018899",
+	PremiumOnly = false
+})
+
+local SettingsTab = Window:MakeTab({
+	Name = "Settings",
+	Icon = "rbxassetid://4483345743",
 	PremiumOnly = false
 })
 
