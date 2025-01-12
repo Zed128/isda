@@ -184,9 +184,7 @@ MainTab:AddDropdown({
 task.spawn(function()
 	while true do
 		if AutoReelEnabled and CurrentAction == "Reeling" then
-			print(1)
 			if AutoReelType == "Fire Event" then
-				print(2)
 				local args = {
 					[1] = 100,
 					[2] = true
@@ -197,7 +195,6 @@ task.spawn(function()
 					remoteEvent:FireServer(unpack(args))
 				end
 			elseif AutoReelType == "Follow Fish" then
-				print(3)
 				-- Follow the fish by adjusting the playerbar X position to match the fish X position
 				local playerGui = LocalPlayer:FindFirstChild("PlayerGui")
 				if playerGui then
@@ -227,7 +224,7 @@ MainTab:AddButton({
 
 		OrionLib:MakeNotification({
 			Name = "Successfully Maxed Rod",
-			Content = "Note: This resets once you leave the game",
+			Content = "Note: This resets once you leave the gam",
 			Image = "rbxassetid://4483345998",
 			Time = 5
 		})
