@@ -268,7 +268,7 @@ task.spawn(function()
 end)
 
 local SellTab = Window:MakeTab({
-	Name = "Settings",
+	Name = "Sell Fish",
 	Icon = "rbxassetid://4483345743",
 	PremiumOnly = false
 })
