@@ -267,6 +267,20 @@ task.spawn(function()
 	RunService.RenderStepped:Connect(freezeCharacter)
 end)
 
+local SellTab = Window:MakeTab({
+	Name = "Settings",
+	Icon = "rbxassetid://4483345743",
+	PremiumOnly = false
+})
+
+SellTab:AddButton({
+	Name = "Sell All Fish",
+	Callback = function()
+		game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("SellAll"):InvokeServer()
+	end    
+})
+
+
 local SettingsTab = Window:MakeTab({
 	Name = "Settings",
 	Icon = "rbxassetid://4483345743",
