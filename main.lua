@@ -165,12 +165,12 @@ task.spawn(function()
 
 		GuiService.SelectedObject = Button
 		print("selected object: ", GuiService.SelectedObject)
-		--keypress(Enum.KeyCode.Return)
-		--keyrelease(Enum.KeyCode.Return)
+		keypress(Enum.KeyCode.Return)
+		keyrelease(Enum.KeyCode.Return)
 
-		--GuiService.AutoSelectGuiEnabled = true
-		--GuiService.GuiNavigationEnabled = false
-		--GuiService.SelectedObject = nil
+		GuiService.AutoSelectGuiEnabled = true
+		GuiService.GuiNavigationEnabled = false
+		GuiService.SelectedObject = nil
 	end
 	LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
 		if child.Name == "shakeui" and child:IsA("ScreenGui") then
