@@ -165,7 +165,7 @@ task.spawn(function()
 
 		GuiService.SelectedObject = Button
 		print("selected object: ", GuiService.SelectedObject)
-		wait(.00001)
+		wait(.001)
 		keypress(Enum.KeyCode.Return)
 		keyrelease(Enum.KeyCode.Return)
 		GuiService.AutoSelectGuiEnabled = true
