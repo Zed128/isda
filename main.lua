@@ -4,6 +4,7 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 
 local RunService = game:GetService("RunService")
+local GuiService = game:GetService("GuiService")
 
 function isRodEquiped()
 	local tool = Character:FindFirstChildOfClass("Tool")
@@ -152,16 +153,30 @@ MainTab:AddToggle({
 })
 
 task.spawn(function()
-	while true do
-		if AutoShakeEnabled and CurrentAction == "Shaking" and LocalPlayer.PlayerGui:FindFirstChild("shakeui") and LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button") and LocalPlayer.PlayerGui.shakeui.safezone.button:FindFirstChild("buttonConsoleSense") then
-			if LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button") then
-				game:GetService("GuiService").SelectedObject = LocalPlayer.PlayerGui.shakeui.safezone.button	
-			end
-			keypress(Enum.KeyCode.Return)
-			keyrelease(Enum.KeyCode.Return)
+	LocalPlayer.PlayerGui.ChildAdded:Connect(function(child1: ScreenGui)
+		if child1.Name == "shakeui" and child1:IsA("ScreenGui") and AutoShakeEnabled and CurrentAction == "Shaking" then
+			local buttonAdded
+			buttonAdded = child1.safezone.ChildAdded:Connect(function(button: ImageButton)
+				child1.Destroying:Connect(function()
+					buttonAdded:Disconnect()
+				end)
+				if button.Name == "button" and button:IsA("ImageButton") then
+					button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
+
+					GuiService.AutoSelectGuiEnabled = false
+					GuiService.GuiNavigationEnabled = true
+
+					GuiService.SelectedObject = button
+					keypress(Enum.KeyCode.Return)
+					keyrelease(Enum.KeyCode.Return)
+
+					GuiService.AutoSelectGuiEnabled = true
+					GuiService.GuiNavigationEnabled = false
+					GuiService.SelectedObject = nil
+				end
+			end)
 		end
-		task.wait(0.05)
-	end
+	end)
 end)
 
 MainTab:AddToggle({
@@ -224,7 +239,7 @@ MainTab:AddButton({
 
 		OrionLib:MakeNotification({
 			Name = "Successfully Maxed Rod",
-			Content = "Note: This resets once you leave the gam",
+			Content = "Note: This resets once you leave the game",
 			Image = "rbxassetid://4483345998",
 			Time = 5
 		})
