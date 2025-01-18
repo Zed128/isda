@@ -172,8 +172,8 @@ task.spawn(function()
 		GuiService.SelectedObject = nil
 	end
 	LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
-		print("player gui child added")
 		if child.Name == "shakeui" and child:IsA("ScreenGui") then
+			print("shakeui added")
 			child.safezone.ChildAdded:Connect(function(grandchild)
 				if grandchild.Name == "button" and grandchild:IsA("ImageButton") then
 					handleButtonClick(grandchild)
