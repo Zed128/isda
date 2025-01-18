@@ -174,13 +174,13 @@ task.spawn(function()
 	LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
 		print("player gui child added")
 		if child.Name == "shakeui" and child:IsA("ScreenGui") then
-			child.ChildAdded:Connect(function(grandchild)
+			child.safezone.ChildAdded:Connect(function(grandchild)
 				if grandchild.Name == "button" and grandchild:IsA("ImageButton") then
 					handleButtonClick(grandchild)
 				end
 			end)
-			if child:FindFirstChild("button") and child.button:IsA("ImageButton") then
-				handleButtonClick(child.button)
+			if child.safezone:FindFirstChild("button") and child.safezone.button:IsA("ImageButton") then
+				handleButtonClick(child.safezone.button)
 			end
 		end
 	end)
