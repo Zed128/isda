@@ -165,7 +165,7 @@ task.spawn(function()
 
 		GuiService.SelectedObject = Button
 		print("selected object: ", GuiService.SelectedObject)
-		wait(.001)
+		wait(.00001)
 		keypress(Enum.KeyCode.Return)
 		keyrelease(Enum.KeyCode.Return)
 		GuiService.AutoSelectGuiEnabled = true
@@ -176,11 +176,11 @@ task.spawn(function()
 		if child.Name == "shakeui" and child:IsA("ScreenGui") then
 			print("shakeui added")
 			child.safezone.ChildAdded:Connect(function(grandchild)
-				if grandchild.Name == "button" and grandchild:IsA("ImageButton") then
+				if AutoReelEnabled and CurrentAction == "Reeling" and grandchild.Name == "button" and grandchild:IsA("ImageButton") then
 					handleButtonClick(grandchild)
 				end
 			end)
-			if child.safezone:FindFirstChild("button") and child.safezone.button:IsA("ImageButton") then
+			if AutoReelEnabled and CurrentAction == "Reeling" and child.safezone:FindFirstChild("button") and child.safezone.button:IsA("ImageButton") then
 				handleButtonClick(child.safezone.button)
 			end
 		end
