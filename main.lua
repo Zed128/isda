@@ -156,6 +156,7 @@ task.spawn(function()
 	
 	local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 	local function handleButtonClick(Button: ImageButton)
+		print("button click")
 		Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
 
 		GuiService.AutoSelectGuiEnabled = false
@@ -170,6 +171,7 @@ task.spawn(function()
 		GuiService.SelectedObject = nil
 	end
 	local function detectShakeUI()
+		print("shake ui detected")
 		local shakeUI = PlayerGui:FindFirstChild("shakeui")
 		if shakeUI then
 			shakeUI.ChildAdded:Connect(function(child)
