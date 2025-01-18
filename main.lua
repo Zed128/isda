@@ -153,28 +153,20 @@ MainTab:AddToggle({
 })
 
 task.spawn(function()
-	LocalPlayer.PlayerGui.ChildAdded:Connect(function(child1: ScreenGui)
-		if child1.Name == "shakeui" and child1:IsA("ScreenGui") and AutoShakeEnabled and CurrentAction == "Shaking" then
-			local buttonAdded
-			buttonAdded = child1.safezone.ChildAdded:Connect(function(button: ImageButton)
-				child1.Destroying:Connect(function()
-					buttonAdded:Disconnect()
-				end)
-				if button.Name == "button" and button:IsA("ImageButton") then
-					button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
+	LocalPlayer.PlayerGui.DescendantAdded:Connect(function(Button: ImageButton)
+		if Button.Name == "button" and Button:IsA("ImageButton") and Button.Parent.Name == "safezone" then
+			Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
 
-					GuiService.AutoSelectGuiEnabled = false
-					GuiService.GuiNavigationEnabled = true
+			GuiService.AutoSelectGuiEnabled = false
+			GuiService.GuiNavigationEnabled = true
 
-					GuiService.SelectedObject = button
-					keypress(Enum.KeyCode.Return)
-					keyrelease(Enum.KeyCode.Return)
+			GuiService.SelectedObject = Button
+			keypress(Enum.KeyCode.Return)
+			keyrelease(Enum.KeyCode.Return)
 
-					GuiService.AutoSelectGuiEnabled = true
-					GuiService.GuiNavigationEnabled = false
-					GuiService.SelectedObject = nil
-				end
-			end)
+			GuiService.AutoSelectGuiEnabled = true
+			GuiService.GuiNavigationEnabled = false
+			GuiService.SelectedObject = nil
 		end
 	end)
 end)
