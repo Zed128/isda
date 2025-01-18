@@ -1,3 +1,5 @@
+print("running script")
+
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
@@ -153,6 +155,7 @@ MainTab:AddToggle({
 })
 
 task.spawn(function()
+	print("shake task spawn")
 	local function handleButtonClick(Button: ImageButton)
 		print("button click")
 		Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
