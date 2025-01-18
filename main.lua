@@ -157,19 +157,20 @@ MainTab:AddToggle({
 task.spawn(function()
 	print("shake task spawn")
 	local function handleButtonClick(Button: ImageButton)
-		print("handle button click", Button.Name, Button.ClassName)
-		Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
+		print("handle button click", Button.ClassName, Button:GetFullName())
+		--Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
 
-		GuiService.AutoSelectGuiEnabled = false
-		GuiService.GuiNavigationEnabled = true
+		--GuiService.AutoSelectGuiEnabled = false
+		--GuiService.GuiNavigationEnabled = true
 
 		GuiService.SelectedObject = Button
-		keypress(Enum.KeyCode.Return)
-		keyrelease(Enum.KeyCode.Return)
+		print("selected object: ", GuiService.SelectedObject)
+		--keypress(Enum.KeyCode.Return)
+		--keyrelease(Enum.KeyCode.Return)
 
-		GuiService.AutoSelectGuiEnabled = true
-		GuiService.GuiNavigationEnabled = false
-		GuiService.SelectedObject = nil
+		--GuiService.AutoSelectGuiEnabled = true
+		--GuiService.GuiNavigationEnabled = false
+		--GuiService.SelectedObject = nil
 	end
 	LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
 		if child.Name == "shakeui" and child:IsA("ScreenGui") then
