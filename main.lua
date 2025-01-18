@@ -153,22 +153,35 @@ MainTab:AddToggle({
 })
 
 task.spawn(function()
-	LocalPlayer.PlayerGui.DescendantAdded:Connect(function(Button: ImageButton)
-		if Button.Name == "button" and Button:IsA("ImageButton") and Button.Parent.Name == "safezone" then
-			Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
+	
+	local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+	local function handleButtonClick(Button: ImageButton)
+		Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
 
-			GuiService.AutoSelectGuiEnabled = false
-			GuiService.GuiNavigationEnabled = true
+		GuiService.AutoSelectGuiEnabled = false
+		GuiService.GuiNavigationEnabled = true
 
-			GuiService.SelectedObject = Button
-			keypress(Enum.KeyCode.Return)
-			keyrelease(Enum.KeyCode.Return)
+		GuiService.SelectedObject = Button
+		keypress(Enum.KeyCode.Return)
+		keyrelease(Enum.KeyCode.Return)
 
-			GuiService.AutoSelectGuiEnabled = true
-			GuiService.GuiNavigationEnabled = false
-			GuiService.SelectedObject = nil
+		GuiService.AutoSelectGuiEnabled = true
+		GuiService.GuiNavigationEnabled = false
+		GuiService.SelectedObject = nil
+	end
+	local function detectShakeUI()
+		local shakeUI = PlayerGui:FindFirstChild("shakeui")
+		if shakeUI then
+			shakeUI.ChildAdded:Connect(function(child)
+				if child.Name == "button" and child:IsA("ImageButton") then handleButtonClick() end
+			end)
+			if shakeUI:FindFirstChild("button") and shakeUI:IsA("ImageButton") then handleButtonClick() end
 		end
+	end
+	PlayerGui.ChildAdded:Connect(function(child)
+		if child.Name == "shakeui" and child:IsA("ScreenGui") then detectShakeUI() end
 	end)
+	detectShakeUI()
 end)
 
 MainTab:AddToggle({
