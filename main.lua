@@ -158,10 +158,10 @@ task.spawn(function()
 	print("shake task spawn")
 	local function handleButtonClick(Button: ImageButton)
 		print("handle button click", Button.ClassName, Button:GetFullName())
-		--Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
+		Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
 
-		--GuiService.AutoSelectGuiEnabled = false
-		--GuiService.GuiNavigationEnabled = true
+		GuiService.AutoSelectGuiEnabled = false
+		GuiService.GuiNavigationEnabled = true
 
 		GuiService.SelectedObject = Button
 		print("selected object: ", GuiService.SelectedObject)
