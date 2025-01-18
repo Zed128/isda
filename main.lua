@@ -157,7 +157,7 @@ MainTab:AddToggle({
 task.spawn(function()
 	print("shake task spawn")
 	local function handleButtonClick(Button: ImageButton)
-		print("button click", Button.Name, Button.ClassName)
+		print("handle button click", Button.Name, Button.ClassName)
 		Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
 
 		GuiService.AutoSelectGuiEnabled = false
