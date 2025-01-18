@@ -153,8 +153,6 @@ MainTab:AddToggle({
 })
 
 task.spawn(function()
-	
-	local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 	local function handleButtonClick(Button: ImageButton)
 		print("button click")
 		Button.Selectable = true -- For some reason this is false for the first 0.2 seconds.
@@ -170,20 +168,19 @@ task.spawn(function()
 		GuiService.GuiNavigationEnabled = false
 		GuiService.SelectedObject = nil
 	end
-	local function detectShakeUI()
-		print("shake ui detected")
-		local shakeUI = PlayerGui:FindFirstChild("shakeui")
-		if shakeUI then
-			shakeUI.ChildAdded:Connect(function(child)
-				if child.Name == "button" and child:IsA("ImageButton") then handleButtonClick() end
+	LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+		if child.Name == "shakeui" and child:IsA("ScreenGui") then
+			child.ChildAdded:Connect(function(grandchild)
+				if grandchild.Name == "button" and grandchild:IsA("ImageButton") then
+					handleButtonClick(grandchild)
+				end
 			end)
-			if shakeUI:FindFirstChild("button") and shakeUI:IsA("ImageButton") then handleButtonClick() end
+			if child:FindFirstChild("button") and child.button:IsA("ImageButton") then
+				handleButtonClick(child.button)
+			end
 		end
-	end
-	PlayerGui.ChildAdded:Connect(function(child)
-		if child.Name == "shakeui" and child:IsA("ScreenGui") then detectShakeUI() end
 	end)
-	detectShakeUI()
+	
 end)
 
 MainTab:AddToggle({
