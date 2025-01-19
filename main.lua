@@ -177,11 +177,11 @@ task.spawn(function()
 		if child.Name == "shakeui" and child:IsA("ScreenGui") then
 			print("shakeui added")
 			child.safezone.ChildAdded:Connect(function(grandchild)
-				if grandchild.Name == "button" and grandchild:IsA("ImageButton") then
+				if AutoShakeEnabled and CurrentAction == "Shaking" grandchild.Name == "button" and grandchild:IsA("ImageButton") then
 					handleButtonClick(grandchild)
 				end
 			end)
-			if child.safezone:FindFirstChild("button") and child.safezone.button:IsA("ImageButton") then
+			if AutoShakeEnabled and CurrentAction == "Shaking" child.safezone:FindFirstChild("button") and child.safezone.button:IsA("ImageButton") then
 				handleButtonClick(child.safezone.button)
 			end
 		end
